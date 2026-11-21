@@ -12,7 +12,7 @@ const bots:Strategy[]=[
 const submissions=new Set<string>();
 const sessionId=crypto.randomUUID();
 const utm=Object.fromEntries(new URLSearchParams(location.search).entries().filter(([k])=>k.startsWith('utm_')));
-function track(event:string,properties:Record<string,string|number|boolean>={}){if(import.meta.env.DEV)console.info('[GoToBots demo]',{event,timestamp:new Date().toISOString(),sessionId,...utm,...properties});}
+function track(event:string,properties:Record<string,string|number|boolean>={}){if(import.meta.env.DEV)console.info('[GoToBots demo]',{event,timestamp:new Date().toISOString(),sessionId,...utm,...properties});const ph=(window as Window & {posthog?:{capture:(event:string,props:Record<string,string|number|boolean>)=>void};GOTOBOTS_POSTHOG_KEY?:string});if(ph.GOTOBOTS_POSTHOG_KEY&&ph.posthog)ph.posthog.capture(event,{...utm,...properties,app:'gotobots',environment:'preview'});}
 function Logo(){return <Link className="logo" to="/"><span className="logo-icon"><Bot size={22}/></span>GoTo<span className="accent">Bots</span></Link>}
 function Header({back=false,title=''}:{back?:boolean;title?:string}){const nav=useNavigate();return <header className="header">{back?<button className="back" aria-label="Go back" onClick={()=>nav(-1)}><ArrowLeft size={20}/></button>:<Logo/>}{title&&<strong className="header-title">{title}</strong>}<span className="preview">● EARLY PREVIEW</span></header>}
 function Button({children,onClick}:{children:React.ReactNode;onClick:()=>void}){return <button className="primary" onClick={onClick}>{children}<ArrowRight size={19}/></button>}
