@@ -21,8 +21,42 @@ function AnalyticsConsent(){
    if(value){track('screen_viewed',{screen_name:'welcome'});track('landing_view',{screen_name:'welcome'});}
  }}/> Allow anonymous product analytics (optional)</label>;
 }
+type LocaleCode='en'|'ka'|'ru';
+type LocaleBridge={current:()=>LocaleCode;setLanguage:(lang:LocaleCode)=>void;localize:(root:Element|null)=>void};
+function localeBridge():LocaleBridge|undefined{return (window as Window&{GTBLocale?:LocaleBridge}).GTBLocale}
+const LangContext=React.createContext<{language:LocaleCode;change:(lang:LocaleCode)=>void}>({language:'en',change:()=>{}});
+const languageOptions:[LocaleCode,string,string][]=[['en','🇺🇸','English'],['ka','🇬🇪','ქართული'],['ru','🇷🇺','Русский']];
+function LanguagePicker(){
+ const {language,change}=React.useContext(LangContext);
+ const [open,setOpen]=useState(false);
+ const selected=languageOptions.find(x=>x[0]===language)!;
+ return <div className="lang-selector">
+ <button type="button" className="lang-trigger" aria-label="Select language" aria-expanded={open} aria-haspopup="listbox" onClick={()=>setOpen(x=>!x)}>
+   <span className="flag">{selected[1]}</span><span>{language.toUpperCase()}</span><span aria-hidden="true">⌄</span>
+ </button>
+ {open&&<div role="listbox" className="lang-menu" aria-label="Language">{languageOptions.map(([code,flag,label])=>
+ <button type="button" key={code} role="option" aria-selected={code===language} className={'lang-option '+(code===language?'active':'')} onClick={()=>{change(code);setOpen(false)}}><span className="flag">{flag}</span>{label}</button>)}</div>}
+ </div>;
+}
+function LocalizedApp(){
+ const[language,setLanguage]=useState<LocaleCode>(()=>localeBridge()?.current()||'en');
+ const change=(value:LocaleCode)=>{localeBridge()?.setLanguage(value);setLanguage(value)};
+ React.useLayoutEffect(()=>{
+  const root=document.getElementById('root');
+  if(!root)return;
+  const localize=()=>localeBridge()?.localize(root);
+  localize();
+  const watcher=new MutationObserver(localize);
+  watcher.observe(root,{subtree:true,childList:true,characterData:true});
+  return()=>watcher.disconnect();
+ },[language]);
+ return <LangContext.Provider value={{language,change}}><div key={language}><Routes>
+   <Route path="/" element={<Welcome/>}/><Route path="/bots" element={<Lobby/>}/>
+   <Route path="/bots/:id" element={<Details/>}/><Route path="*" element={<Navigate to="/" replace/>}/>
+ </Routes></div></LangContext.Provider>;
+}
 function Logo(){return <Link className="logo" to="/"><span className="logo-icon"><Bot size={22}/></span>GoTo<span className="accent">Bots</span></Link>}
-function Header({back=false,title=''}:{back?:boolean;title?:string}){const nav=useNavigate();return <header className="header">{back?<button className="back" aria-label="Go back" onClick={()=>nav(-1)}><ArrowLeft size={20}/></button>:<Logo/>}{title&&<strong className="header-title">{title}</strong>}<span className="preview">● EARLY PREVIEW</span></header>}
+function Header({back=false,title=''}:{back?:boolean;title?:string}){const nav=useNavigate();return <header className="header">{back?<button className="back" aria-label="Go back" onClick={()=>nav(-1)}><ArrowLeft size={20}/></button>:<Logo/>}{title&&<strong className="header-title">{title}</strong>}<div className="header-tools"><LanguagePicker/><span className="preview">● EARLY PREVIEW</span></div></header>}
 function Button({children,onClick}:{children:React.ReactNode;onClick:()=>void}){return <button className="primary" onClick={onClick}>{children}<ArrowRight size={19}/></button>}
 function Icon({bot,size=52}:{bot:Strategy;size?:number}){const C=bot.icon==='grid'?Grid2X2:bot.icon==='shield'?ShieldCheck:ChartNoAxesCombined;return <span className={'bot-icon '+bot.icon} style={{width:size,height:size}}><C size={size*.46}/></span>}
 function Risk({full=false}:{full?:boolean}){return <div className="risk"><strong><Info size={15}/> Risk & performance disclosure</strong><p>Automated crypto trading involves significant market risk. Returns are not guaranteed and capital can be lost. No trading or deposits are available in this preview.</p>{full&&<p className="risk-extra"><b>“Up to 100% Returns per Month”</b> is a product-owner marketing claim pending verification. Measurement period, methodology, fees, historical context and supporting records have not yet been supplied. This figure must not be used to predict returns.</p>}</div>}
@@ -99,4 +133,4 @@ function Details(){
  {modal&&<Modal bot={bot} capital={capital} monthlyReturnPercent={monthlyReturnPercent} close={()=>setModal(false)} success={()=>{setModal(false);setConfirmed(true)}}/>}
  </main>;
 }
-createRoot(document.getElementById('root')!).render(<React.StrictMode><BrowserRouter basename="/trading-platform"><Routes><Route path="/" element={<Welcome/>}/><Route path="/bots" element={<Lobby/>}/><Route path="/bots/:id" element={<Details/>}/><Route path="*" element={<Navigate to="/" replace/>}/></Routes></BrowserRouter></React.StrictMode>);
+createRoot(document.getElementById('root')!).render(<React.StrictMode><BrowserRouter basename="/trading-platform"><LocalizedApp/></BrowserRouter></React.StrictMode>);
