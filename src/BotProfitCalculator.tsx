@@ -54,15 +54,15 @@ export function BotProfitCalculator({botId,botName,capital,setCapital,monthlyRet
  useEffect(()=>{touched.current=false;lastCommitted.current=monthlyReturnPercent},[botId]);
  return <section id="bot-profit-calculator" className="panel profit-calculator" aria-label="Illustrative monthly profit and loss calculator">
    <h2>Monthly Profit / Loss Calculator</h2>
-   <p className="subtitle">Explore hypothetical outcomes, including possible losses.</p>
+   <p className="subtitle">Explore illustrative monthly return scenarios from 0% to 100%.</p>
    <h3>Trading Capital</h3>
    <div className="capital-grid">{options.map(v=><button type="button" key={v} className={capital===v?'selected':''} aria-pressed={capital===v} onClick={()=>chooseCapital(v)}>{cash(v)}</button>)}</div>
    <label className="slider-label" htmlFor="monthly-return"><span>Illustrative Monthly Return</span><strong className={monthlyReturnPercent<0?'scenario-negative':''}>{monthlyReturnPercent>0?'+':''}{monthlyReturnPercent}%</strong></label>
-   <input id="monthly-return" className="return-slider" type="range" min="-100" max="100" step="5" value={monthlyReturnPercent}
+   <input id="monthly-return" className="return-slider" type="range" min="0" max="100" step="5" value={monthlyReturnPercent}
      onChange={e=>{const next=Number(e.target.value);if(next!==monthlyReturnPercent){firstInteraction();setMonthlyReturnPercent(next)}}}
      onPointerUp={commit} onKeyUp={commit} onBlur={commit}
      aria-valuetext={monthlyReturnPercent+' percent illustrative monthly return'}/>
-   <div className="slider-extents"><span>−100%</span><span>0%</span><span>+100%</span></div>
+   <div className="slider-extents"><span>0%</span><span>+100%</span></div>
    <dl className="profit-results">
      <div><dt>Starting Capital</dt><dd>{cash(capital)}</dd></div>
      <div><dt>Illustrative Monthly Return</dt><dd>{monthlyReturnPercent>0?'+':''}{monthlyReturnPercent}%</dd></div>
