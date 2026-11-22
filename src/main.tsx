@@ -82,14 +82,14 @@ function Modal({bot,capital,monthlyReturnPercent,close,success}:{bot:Strategy;ca
  return <div className="overlay" onMouseDown={e=>{if(e.target===e.currentTarget)close()}}>
   <div className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
    <div className="modal-heading"><div><p className="eyebrow">PRIVATE PREVIEW</p><h2 id="modal-title">Get Early Access</h2></div><button autoFocus className="back" onClick={close} aria-label="Close modal"><X size={20}/></button></div>
-   <p className="subtitle">GoToBots is currently in development. Join the waitlist to be notified when access becomes available.</p>
+   <p className="subtitle">Start your 14-day trial when GoToBots launches. Join the early access list now.</p>
    <div className="summary"><div><span>Selected bot</span><b>{bot.name}</b></div><div><span>Preview capital</span><b>${capital.toLocaleString()}</b></div><div><span>Illustrative monthly return</span><b>{monthlyReturnPercent}%</b></div><div><span>Planned subscription</span><b>$39/month</b></div><p className="accent">✓ 14-day subscription trial planned at launch</p></div>
    <form onSubmit={submit} noValidate>
     <label htmlFor="email">Email address</label>
     <input id="email" type="email" autoComplete="email" placeholder="you@example.com" value={email} onFocus={onFormStart} onChange={e=>{onFormStart();setEmail(e.target.value);setError('')}} aria-invalid={!!error} aria-describedby={error?'email-error':undefined}/>
     {error&&<p className="error" id="email-error" role="alert">{error}</p>}
     <label className="consent"><input type="checkbox" checked={consent} onFocus={onFormStart} onChange={e=>{onFormStart();setConsent(e.target.checked)}}/> I agree to receive optional marketing updates. (Not required.)</label>
-    <button className="primary" type="submit">Join Waitlist →</button>
+    <button className="primary" type="submit">Join Waitlist — 14-Day Trial at Launch →</button>
    </form>
    <p className="fine centered">Demo only · Temporary local memory · No email saved or sent</p>
   </div>
@@ -127,7 +127,7 @@ function Details(){
   <BotProfitCalculator key={bot.id} botId={bot.id as BotId} botName={bot.name} capital={capital} setCapital={setCapital} monthlyReturnPercent={monthlyReturnPercent} setMonthlyReturnPercent={setMonthlyReturnPercent}/>
   <section className="panel pricing"><div><span className="muted">Planned Subscription</span><h2>$39 <small>/month</small></h2></div><span className="offer">14 DAYS FREE*</span><p className="fine">*14-day SaaS subscription trial planned at launch. Subscription fees and trading capital are separate.</p></section>
   <Risk/>
-  <Button onClick={()=>{track('activation_clicked',{...context,cta_id:'request_access'});track('waitlist_modal_opened',{...context,screen_name:'early_access'});setModal(true)}}>Request Access</Button>
+  <Button onClick={()=>{track('activation_clicked',{...context,cta_id:'request_access'});track('waitlist_modal_opened',{...context,screen_name:'early_access'});setModal(true)}}>Request Early Access — 14 Days Free at Launch</Button>
   <p className="fine centered">No payment or exchange connection required</p>
  </div>}
  {modal&&<Modal bot={bot} capital={capital} monthlyReturnPercent={monthlyReturnPercent} close={()=>setModal(false)} success={()=>{setModal(false);setConfirmed(true)}}/>}
