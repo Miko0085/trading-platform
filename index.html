@@ -53,7 +53,7 @@ function log(event,props={},uniqueKey){
 function setConsent(checked){
  analyticsConsent=checked;
  try{storage('local')?.setItem(KEY_ANALYTICS,checked?'yes':'no')}catch{}
- if(checked){enableGoToBotsPosthog();log('screen_viewed',{screen_name:route()==='/'?'welcome':'bot_details'});if(route()==='/')log('landing_view',{screen_name:'welcome'})}
+ if(checked){enableGoToBotsPosthog();if(window.posthog?.opt_in_capturing)window.posthog.opt_in_capturing();log('screen_viewed',{screen_name:route()==='/'?'welcome':'bot_details'});if(route()==='/')log('landing_view',{screen_name:'welcome'})}
  else if(window.posthog?.opt_out_capturing)window.posthog.opt_out_capturing();
 }
 function calcState(){return {screen_name:'bot_details',bot_id:selected.id,bot_name:selected.name,selected_capital:capital,illustrative_monthly_return_percent:scenario,illustrative_monthly_pnl:capital*scenario/100}}
@@ -101,7 +101,7 @@ function render(){
   lastRoute=r;
  }
  app.innerHTML='<main class="wrap">'+(r==='/bots'?lobby():r.startsWith('/bots/')?details():welcome())+'</main>'+(modal?dialog():'');
- if(modal){formStarted=false;document.getElementById('email').focus()}
+ if(modal){formStarted=false}
  const calc=document.getElementById('calculator');
  if(calc&&!confirmed&&renderedCalculator!==selected.id){
   renderedCalculator=selected.id;
