@@ -84,7 +84,7 @@ function submitDemo(e){
  modal=false;confirmed=true;render();
  log('confirmation_viewed',{...calcState(),screen_name:'confirmation'},'confirmation:'+selected.id);
 }
-function route(){return location.pathname.replace(/^\/trading-platform\/?/,'/')}
+function route(){const path=location.pathname.replace(/^\/trading-platform\/?/,'/').replace(/\/+$/,'');return path||'/'}
 function go(path){history.pushState({},'', '/trading-platform'+(path==='/'?'/':path));modal=false;confirmed=false;render();window.scrollTo(0,0)}
 function goBack(){if(modal){modal=false;render();return}go(route().startsWith('/bots/')?'/bots':'/')}
 function pick(id){
