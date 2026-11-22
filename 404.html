@@ -106,7 +106,7 @@ function localeSwitcher(){
 }
 function header(back=false,title=''){
  return '<header class="head">'+(back?'<button class="back" onclick="goBack()" aria-label="Back">←</button>':'<div class="brand" onclick="go(\'/\')"><i>⌘</i>GoTo<span class="lime">Bots</span></div>')+(title?'<b>'+title+'</b>':'')+
- '<div class="header-tools">'+localeSwitcher()+'<span class="tag">● EARLY PREVIEW</span></div></header>';
+ '<div class="header-tools">'+localeSwitcher()+'</div></header>';
 }
 function risk(full=false){return '<section class="risk"><strong>ⓘ Risk & performance disclosure</strong><p>Automated crypto trading involves significant market risk. Returns are not guaranteed and capital can be lost. No trading or deposits are available in this preview.</p>'+(full?'<p>“Up to 100% Returns per Month” is a product-owner marketing claim pending verification. Measurement period, methodology, fees, historical context and supporting records have not yet been supplied. This figure must not be used to predict returns.</p>':'')+'</section>'}
 function button(label,action){return '<button class="primary" onclick="'+action+'">'+label+' →</button>'}
