@@ -6,6 +6,7 @@ const ID_KEY='gotobots.anonymous_id.v1';
 const FIRST_KEY='gotobots.first_touch.v1';
 const LATEST_KEY='gotobots.latest_touch.v1';
 const SESSION_KEY='gotobots.session_id.v1';
+const CONSENT_KEY='gotobots.analytics_consent.v1';
 const sessionFallback=crypto.randomUUID();
 const memoryId=crypto.randomUUID();
 const params:['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaign_id','creative_id']=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaign_id','creative_id'];
@@ -66,7 +67,9 @@ export function initializeAnalytics(enabled:boolean):void{
   });
   // Deliberately do not identify with email or merge device profiles.
 }
+export function hasAnalyticsConsent():boolean{return storage('local')?.getItem(CONSENT_KEY)==='yes';}
 export function setAnalyticsConsent(enabled:boolean):void{
+  try{storage('local')?.setItem(CONSENT_KEY,enabled?'yes':'no');}catch{/* blocked */}
   consent=enabled;
   if(enabled)initializeAnalytics(true);
   else if(initialized)posthog.opt_out_capturing();
@@ -91,3 +94,5 @@ export function capture(name:AnalyticsEventName,properties:AnalyticsEventPropert
   if(consent&&initialized)posthog.capture(name,payload);
 }
 export function resetAnalyticsForTesting():void{seen.clear();}
+
+if(typeof window!=='undefined'&&hasAnalyticsConsent())initializeAnalytics(true);
