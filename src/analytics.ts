@@ -78,15 +78,16 @@ export function setAnalyticsConsent(enabled:boolean):void{
 export function capture(name:AnalyticsEventName,properties:AnalyticsEventProperties={},onceKey?:string):void{
   const key=onceKey?name+':'+onceKey:'';
   if(key&&seen.has(key))return;
-  if(key)seen.add(key);
+  if(key&&consent&&initialized)seen.add(key);
   const ctx=getVisitorContext();
   const attrs=ctx.attribution.latest;
+  const experiment_variant=new URLSearchParams(location.search).get('experiment_variant')?.slice(0,80);
   const payload={
     anonymous_id:ctx.anonymous_id,session_id:ctx.session_id,
     timestamp:new Date().toISOString(),...attrs,
     first_touch_source:ctx.attribution.first.utm_source,
     first_touch_campaign:ctx.attribution.first.utm_campaign,
-    ...properties,app:'gotobots',environment:import.meta.env.MODE
+    ...properties,experiment_variant,app:'gotobots',environment:import.meta.env.MODE
   };
   if(import.meta.env.DEV)console.info('[GoToBots analytics]',name,payload);
   // Local behavioral score is for a preview only; production backend must validate it.
