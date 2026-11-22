@@ -24,6 +24,9 @@ Object.assign(messages.ka,{
   '14 DAYS FREE*':'14 დღე უფასოდ*'
 });
 
+
+Object.assign(messages.ru,{'Explore illustrative monthly return scenarios from 0% to 100%.':'Рассчитайте условную месячную доходность от 0% до 100%.'});
+Object.assign(messages.ka,{'Explore illustrative monthly return scenarios from 0% to 100%.':'გამოთვალეთ საილუსტრაციო თვიური შემოსავლიანობა 0%-დან 100%-მდე.'});
 const supported=['en','ka','ru'];
 const saved=(()=>{try{return localStorage.getItem('gt:language')}catch{return null}})();
 let language=supported.includes(saved)?saved:'en';
