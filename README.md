@@ -28,6 +28,11 @@ Never set a PostHog secret/personal API token in a `VITE_` variable; those value
 
 Calculator: $100/$250/$500/$1,000; −100% to +100% monthly return (5% increments); instant starting capital, illustrative return, monthly P&L and ending value. **All numbers are user-selected scenarios, not historical returns or predictions.** Existing marketing copy is unchanged, but the unverified 100% claim requires independent review before use in paid acquisition.
 
+
+## Languages
+
+The UI supports **English (default)**, **Georgian (ქართული)** and **Russian (Русский)**. A compact flag dropdown is shown in the header on mobile and desktop. Language selection persists in localStorage as `gt:language`; no external translation service or network request is needed. Strings are centralized in `public/locales.js` and localized across navigation, calculator, disclaimers, modal and confirmation. The displayed flag denotes language selection, not a user's nationality.
+
 ## Analytics and identity
 
 - Centralized tracker: `src/analytics.ts`
