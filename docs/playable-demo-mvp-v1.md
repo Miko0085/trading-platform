@@ -65,3 +65,27 @@ Not a real Bybit trading system. Live, referrals, subscriptions, market figures,
 ## Production safety
 
 Do not copy mock API logic into actual trading infrastructure. Production cycle execution requires server-side broker/API permissions, risk policy, idempotent order management, durable ledgers, Bybit reconciliation and independent risk controls. Withdrawal-disabled exchange APIs can still lose money through trading permissions.
+
+## Visual and responsive polish (November 22, 2026)
+
+Updated `public/playable-demo/index.html` and the isolated `gh-pages/playable-demo/index.html` preview. The existing `main` landing and React source remain untouched.
+
+- Reuse the main GoToBots palette: `#101820` page, `#1c2833` panels, `#344451` borders, `#b6f24a` accent.
+- Responsive side paddings, 12/10/8px grids, consistent buttons, card radii and typographic hierarchy.
+- Preserve desktop sidebar and mobile bottom navigation with safe-area-aware padding.
+- Move reward and activity toast notifications to the **top** of the viewport with notch-safe padding, dismiss button and reduced-motion support.
+- Stack Friends League / Global Leaderboard panels on narrow mobile devices; wrap Tasks filter header, avoid overflow in task/referral rows.
+- New browser QA: `scripts/visual-qa.mjs` runs real Chromium over viewport widths 320, 375, 390, 430, 768, 1280 and 1440, visits all four tabs, asserts no horizontal overflow and browser errors, checks toast placement and saves 28 full-page screenshots.
+- GitHub Actions uploads screenshots as `playable-demo-visual-qa` artifact.
+
+Run visual QA locally after installing Playwright and Chromium:
+
+```bash
+npm install --no-save playwright
+npx playwright install chromium
+python3 -m http.server 4173 --directory public
+# In a second terminal:
+node scripts/visual-qa.mjs
+```
+
+Successful Chromium geometry checks do not replace subjective visual review of generated screenshots on physical iPhone/Android devices.
