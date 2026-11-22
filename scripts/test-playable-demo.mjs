@@ -105,3 +105,20 @@ test('Only GOLD appears and four primary nav items are present',()=>{
  assert.ok(ui.includes('data-a="go:profile"'));
  assert.ok(!ui.includes('ETH GRID'));
 });
+test('Design tokens and mobile viewport safe areas match main branding',()=>{
+ assert.ok(html.includes('--gt-accent:#b6f24a'));
+ assert.ok(html.includes('env(safe-area-inset-top,0px)'));
+ assert.ok(html.includes('env(safe-area-inset-bottom,0px)'));
+ assert.ok(html.includes('.leaderboards{grid-template-columns:minmax(0,1fr)}'));
+});
+test('XP and Credits notifications render at top with dismiss action',()=>{
+ const t=harness();demoReady(t);
+ t.tap('go:tasks');
+ t.tap('task:basics');t.tap('do:basics');t.tap('complete:basics');
+ const ui=t.render();
+ assert.ok(ui.includes('class="toast"'));
+ assert.ok(ui.includes('toast-mark'));
+ assert.ok(ui.includes('data-a="toastclose"'));
+ t.tap('toastclose');
+ assert.ok(!t.render().includes('class="toast"'));
+});
