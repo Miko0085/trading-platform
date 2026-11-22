@@ -89,7 +89,7 @@ function Modal({bot,capital,monthlyReturnPercent,close,success}:{bot:Strategy;ca
     <input id="email" type="email" autoComplete="email" placeholder="you@example.com" value={email} onFocus={onFormStart} onChange={e=>{onFormStart();setEmail(e.target.value);setError('')}} aria-invalid={!!error} aria-describedby={error?'email-error':undefined}/>
     {error&&<p className="error" id="email-error" role="alert">{error}</p>}
     <label className="consent"><input type="checkbox" checked={consent} onFocus={onFormStart} onChange={e=>{onFormStart();setConsent(e.target.checked)}}/> I agree to receive optional marketing updates. (Not required.)</label>
-    <button className="primary" type="submit">Join Waitlist — 14-Day Trial at Launch →</button>
+    <button className="primary" type="submit">Join Waitlist — 14 Days Free →</button>
    </form>
    <p className="fine centered">Demo only · Temporary local memory · No email saved or sent</p>
   </div>
@@ -127,7 +127,7 @@ function Details(){
   <BotProfitCalculator key={bot.id} botId={bot.id as BotId} botName={bot.name} capital={capital} setCapital={setCapital} monthlyReturnPercent={monthlyReturnPercent} setMonthlyReturnPercent={setMonthlyReturnPercent}/>
   <section className="panel pricing"><div><span className="muted">Planned Subscription</span><h2>$39 <small>/month</small></h2></div><span className="offer">14 DAYS FREE*</span><p className="fine">*14-day SaaS subscription trial planned at launch. Subscription fees and trading capital are separate.</p></section>
   <Risk/>
-  <Button onClick={()=>{track('activation_clicked',{...context,cta_id:'request_access'});track('waitlist_modal_opened',{...context,screen_name:'early_access'});setModal(true)}}>Request Early Access — 14 Days Free at Launch</Button>
+  <Button onClick={()=>{track('activation_clicked',{...context,cta_id:'request_access'});track('waitlist_modal_opened',{...context,screen_name:'early_access'});setModal(true)}}>Request Early Access — 14 Days Free</Button>
   <p className="fine centered">No payment or exchange connection required</p>
  </div>}
  {modal&&<Modal bot={bot} capital={capital} monthlyReturnPercent={monthlyReturnPercent} close={()=>setModal(false)} success={()=>{setModal(false);setConfirmed(true)}}/>}
