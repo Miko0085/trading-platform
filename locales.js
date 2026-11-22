@@ -44,8 +44,9 @@ function localize(root){
   }
  }
 }
-function setLanguage(next){if(!supported.includes(next))return;language=next;try{localStorage.setItem('gt:language',next)}catch{}document.documentElement.lang=next; if(typeof window.render==='function')window.render();}
+function setLanguage(next){if(!supported.includes(next))return;language=next;try{localStorage.setItem('gt:language',next)}catch{}document.documentElement.lang=next;document.title=({en:'GoToBots — Early Preview',ru:'GoToBots — Ранний доступ',ka:'GoToBots — ადრეული წვდომა'})[next]; if(typeof window.render==='function')window.render();}
 function current(){return language;}
 window.GTBLocale={translate,localize,setLanguage,current};
 document.documentElement.lang=language;
+document.title=({en:'GoToBots — Early Preview',ru:'GoToBots — Ранний доступ',ka:'GoToBots — ადრეული წვდომა'})[language];
 })();
