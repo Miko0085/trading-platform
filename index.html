@@ -16,7 +16,7 @@
     var target=p;
     if(name){target=p[name]=[]}else{name='posthog'}
     target.people=target.people||[];
-    var methods='init capture register register_once unregister getFeatureFlag isFeatureEnabled reloadFeatureFlags onFeatureFlags identify group reset get_distinct_id get_session_id alias set_config opt_in_capturing opt_out_capturing has_opted_out_capturing debug'.split(' ');
+    var methods='capture register register_once unregister getFeatureFlag isFeatureEnabled reloadFeatureFlags onFeatureFlags identify group reset get_distinct_id get_session_id alias set_config opt_in_capturing opt_out_capturing has_opted_out_capturing debug'.split(' ');
     for(var i=0;i<methods.length;i++)stub(target,methods[i]);
     p._i.push([token,options,name]);
   };
