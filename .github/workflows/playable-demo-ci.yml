@@ -4,6 +4,7 @@ on:
     paths:
       - 'public/playable-demo/**'
       - 'scripts/test-playable-demo.mjs'
+      - 'scripts/visual-qa.mjs'
       - 'package.json'
       - '.github/workflows/playable-demo-ci.yml'
   push:
@@ -26,3 +27,18 @@ jobs:
         run: npm run build
       - name: Assert demo included in built assets
         run: test -f dist/playable-demo/index.html
+      - name: Install Playwright browser for visual QA
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Browser viewport and notification checks
+        run: |
+          python3 -m http.server 4173 --directory public > /tmp/gotobots-preview-server.log 2>&1 &
+          node scripts/visual-qa.mjs
+      - name: Upload mobile and desktop screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playable-demo-visual-qa
+          path: /tmp/gotobots-visual/*.png
+          if-no-files-found: ignore
