@@ -1,59 +1,69 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101820"><title>GoToBots — Early Preview</title><style>
 :root{font-family:Inter,system-ui,-apple-system,sans-serif;background:#101820;color:white}*{box-sizing:border-box}body{margin:0;min-width:320px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #b6f24a;outline-offset:3px}.wrap{max-width:850px;margin:auto;padding:22px 20px 80px}.head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:32px}.brand{font-size:22px;font-weight:900;letter-spacing:-1px;cursor:pointer}.brand i{display:inline-grid;place-items:center;width:36px;height:36px;background:#b6f24a;color:#101820;border-radius:12px;font-style:normal;margin-right:9px}.lime{color:#b6f24a}.tag{border:1px solid #344451;border-radius:99px;padding:7px 10px;font-size:10px;color:#a9b7c5}.offer{display:inline-block;background:#b6f24a16;border:1px solid #b6f24a55;color:#b6f24a;padding:8px 12px;border-radius:99px;font-size:11px;font-weight:900}.welcome{max-width:560px;margin:auto}h1{font-size:clamp(35px,7vw,57px);line-height:1.08;letter-spacing:-.045em;margin:18px 0;font-weight:900}h2{font-size:24px;margin:9px 0}p{line-height:1.65}.muted{color:#a9b7c5;font-size:14px}.tiny{font-size:11px;color:#8293a1}.claim,.panel,.card,.step{background:#1c2833;border:1px solid #344451;border-radius:17px}.claim{padding:17px;margin:21px 0;background:#b6f24a0b;border-color:#b6f24a44}.claim h2{color:#b6f24a}.claim small{color:#b6f24a;font-weight:900;font-size:10px;letter-spacing:.09em}.steps{display:grid;gap:10px;margin:23px 0}.step{padding:13px;display:flex;gap:14px;align-items:center}.symbol{display:grid;place-items:center;flex:none;background:#b6f24a18;color:#b6f24a;border:1px solid #b6f24a55;border-radius:13px;width:49px;height:49px;font-size:25px}.step strong{font-size:13px}.step p{margin:3px 0 0;font-size:12px;color:#a9b7c5}.primary{background:#b6f24a;color:#101820;font-weight:900;border:0;border-radius:13px;min-height:54px;width:100%;padding:12px}.primary:active{transform:scale(.99)}.link{background:none;border:0;color:#b6f24a;text-decoration:underline;padding:9px}.foot{text-align:center;margin:18px 0}.risk{border:1px solid #344451;border-radius:14px;padding:15px;font-size:12px;color:#a9b7c5;margin:18px 0}.risk strong{color:white}.back{background:#1c2833;color:white;border:1px solid #344451;border-radius:12px;min-width:44px;min-height:44px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:25px 0}.card{padding:19px;text-align:left;color:white;width:100%;transition:border-color .15s}.card:hover{border-color:#b6f24a}.card h2{font-size:21px;margin:20px 0 8px}.card p{color:#a9b7c5;font-size:13px;min-height:90px}.meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;font-size:11px;border-top:1px solid #344451;padding-top:12px}.explore{color:#b6f24a;font-size:13px;font-weight:800;margin-top:18px}.detail{max-width:640px;margin:auto}.bothead{display:flex;align-items:center;gap:16px}.bothead h1{font-size:32px}.chips{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}.pill{font-size:11px;color:#a9b7c5;border:1px solid #344451;border-radius:99px;padding:8px 11px}.panel{padding:17px;margin:17px 0}.chart svg{width:100%;height:150px}.capital{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:15px 0}.capital button{border:1px solid #344451;border-radius:12px;background:#1c2833;color:white;min-height:50px;font-weight:800}.capital button.active{background:#b6f24a;color:#101820;border-color:#b6f24a}.price{display:flex;justify-content:space-between;align-items:center;gap:12px}.price h2{font-size:28px}.overlay{position:fixed;inset:0;background:#000b;display:flex;justify-content:center;align-items:flex-end;z-index:10}.modal{background:#101820;border:1px solid #344451;border-radius:22px 22px 0 0;padding:23px;width:100%;max-width:460px;max-height:94dvh;overflow:auto}.modalhead{display:flex;justify-content:space-between;align-items:start}.summary{background:#1c2833;border:1px solid #344451;border-radius:14px;padding:15px;margin:17px 0}.summary div{display:flex;justify-content:space-between;gap:10px;margin:10px 0;font-size:13px}.summary span{color:#a9b7c5}.modal label{display:block;font-size:13px;font-weight:700;margin:12px 0}.modal input[type=email]{width:100%;padding:14px;background:#1c2833;border:1px solid #344451;color:white;border-radius:12px}.consent{display:flex!important;align-items:start;gap:9px;font-size:12px!important;font-weight:400!important;color:#a9b7c5}.consent input{accent-color:#b6f24a}.error{color:#ffaaaa;font-size:12px}.confirm{text-align:center;max-width:450px;margin:65px auto}.hide{display:none!important}@media(max-width:720px){.cards{grid-template-columns:1fr}.card p{min-height:0}}@media(min-width:650px){.overlay{align-items:center}.modal{border-radius:22px}}@media(max-width:350px){.wrap{padding-left:13px;padding-right:13px}.capital{gap:5px}.capital button{font-size:12px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style><script src="/trading-platform/analytics-config.js"></script><script>
-(function(d,w){
-  if(!w.GOTOBOTS_POSTHOG_KEY)return;
-  var p=w.posthog=w.posthog||[];
-  if(p.__SV)return;
-  p._i=[];
-  p.init=function(token,options,name){
-    function stub(obj,method){obj[method]=function(){obj.push([method].concat(Array.prototype.slice.call(arguments,0)))}}
-    var script=d.createElement('script');
-    script.type='text/javascript';script.crossOrigin='anonymous';script.async=true;
-    script.src=options.api_host.replace('.i.posthog.com','-assets.i.posthog.com')+'/static/array.js';
-    script.onerror=function(){console.warn('PostHog SDK load failed',script.src)};
-    var first=d.getElementsByTagName('script')[0];first.parentNode.insertBefore(script,first);
-    var target=p;
-    if(name){target=p[name]=[]}else{name='posthog'}
-    target.people=target.people||[];
-    var methods='capture register register_once unregister getFeatureFlag isFeatureEnabled reloadFeatureFlags onFeatureFlags identify group reset get_distinct_id get_session_id alias set_config opt_in_capturing opt_out_capturing has_opted_out_capturing debug'.split(' ');
-    for(var i=0;i<methods.length;i++)stub(target,methods[i]);
-    p._i.push([token,options,name]);
-  };
-  p.__SV=1;
-  p.init(w.GOTOBOTS_POSTHOG_KEY,{
-    api_host:w.GOTOBOTS_POSTHOG_HOST||'https://eu.i.posthog.com',
-    defaults:'2026-08-30',
-    autocapture:false,capture_pageview:false,capture_pageleave:false,
-    disable_session_recording:true,persistence:'localStorage+cookie',
-    person_profiles:'identified_only'
-  });
-})(document,window);
-</script><script>
-(function(){
-  const key=window.GOTOBOTS_POSTHOG_KEY;
-  if(!key)return;
-  const host=window.GOTOBOTS_POSTHOG_HOST||'https://us.i.posthog.com';
+.profitcalc{margin:20px 0}.profitcalc h2{font-size:21px}.profitcalc .calc-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #344451;padding:12px 0;font-size:13px}.calc-row strong{font-variant-numeric:tabular-nums;white-space:nowrap}.calc-range{width:100%;accent-color:#b6f24a;cursor:pointer;touch-action:pan-y}.calc-slider-label{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;gap:12px;margin:20px 0 10px}.calc-ends{display:flex;justify-content:space-between;color:#8293a1;font-size:11px;margin:5px 0 13px}.calc-neg{color:#ff8a86!important}.calc-pos{color:#b6f24a}.calc-note{font-size:11px;line-height:1.6;border-left:2px solid #8293a1;color:#a9b7c5;padding-left:11px;margin-top:18px}.analytics-optin{display:flex;align-items:flex-start;gap:9px;color:#a9b7c5;font-size:12px;margin-top:16px}.analytics-optin input{accent-color:#b6f24a}.profitcalc input:focus-visible{outline:3px solid #b6f24a;outline-offset:3px}.calc-row span{color:#a9b7c5}@media(max-width:350px){.calc-row{font-size:11px}}</style><script src="/trading-platform/analytics-config.js"></script><script>
+function enableGoToBotsPosthog(){
+  if(!window.GOTOBOTS_POSTHOG_KEY||window.__gtPosthogLoaded)return;
+  window.__gtPosthogLoaded=true;
+  const host=window.GOTOBOTS_POSTHOG_HOST||'https://eu.i.posthog.com';
   const ph=window.posthog=window.posthog||[];
-  if(!ph.__loaded){
-    ph.__loaded=true;ph._i=[];
-    ph.init=function(k,opts){
-      function stub(target,method){target[method]=function(){target.push([method].concat(Array.from(arguments)))}}
-      const methods='capture identify alias reset get_distinct_id opt_in_capturing opt_out_capturing'.split(' ');
-      for(const method of methods)stub(ph,method);
-      ph._i.push([k,opts]);
-      const script=document.createElement('script');script.async=true;
-      script.src=host.replace(/\\/$/,'')+'/static/array.js';
-      script.onerror=()=>console.warn('PostHog SDK could not load');
-      document.head.appendChild(script);
-    };
-  }
-  ph.init(key,{api_host:host,autocapture:false,capture_pageview:false,capture_pageleave:false,disable_session_recording:true,persistence:'localStorage+cookie',person_profiles:'identified_only'});
-})();
+  ph._i=[];
+  ph.init=function(key,options,name){
+    function stub(target,method){target[method]=function(){target.push([method].concat(Array.prototype.slice.call(arguments)))}}
+    const target=name?(ph[name]=[]):ph;
+    target.people=target.people||[];
+    for(const method of 'capture identify reset get_distinct_id opt_in_capturing opt_out_capturing register'.split(' '))stub(target,method);
+    ph._i.push([key,options,name||'posthog']);
+  };
+  ph.__SV=1;
+  ph.init(window.GOTOBOTS_POSTHOG_KEY,{api_host:host,autocapture:false,capture_pageview:false,capture_pageleave:false,disable_session_recording:true,person_profiles:'identified_only',persistence:'localStorage+cookie'});
+  const el=document.createElement('script');el.async=true;el.crossOrigin='anonymous';
+  el.src=host.replace('.i.posthog.com','-assets.i.posthog.com')+'/static/array.js';
+  el.onerror=()=>console.warn('PostHog SDK blocked or unavailable');
+  document.head.appendChild(el);
+}
 </script></head><body><div id="app"></div><script>
 const bots=[{id:'eth-grid',name:'ETH GRID',asset:'ETH / USDT',desc:'Automated Ethereum trading strategy designed around defined price ranges.',risk:'Variable',type:'Range-based automation',icon:'▦'},{id:'cold-bot',name:'COLD BOT',asset:'Crypto',desc:'Risk-focused automated trading strategy with predefined operating rules.',risk:'Strategy-dependent',type:'Rules-based automation',icon:'⬡'},{id:'growth-bot',name:'GROWTH BOT',asset:'Crypto',desc:'Dynamic automated strategy designed for higher-risk market exposure.',risk:'Higher',type:'Dynamic automation',icon:'↗'}];
-const app=document.getElementById('app'),session=crypto.randomUUID(),submissions=new Set(),utm=Object.fromEntries(new URLSearchParams(location.search).entries().filter(([k])=>k.startsWith('utm_')));let selected=bots[0],capital=250,modal=false,confirmed=false,expanded=false;
-function log(event,props={}){console.info('[GoToBots preview]',{event,timestamp:new Date().toISOString(),sessionId:session,...utm,...props});if(window.posthog&&window.GOTOBOTS_POSTHOG_KEY)window.posthog.capture(event,{...utm,...props,app:'gotobots',environment:'preview'})}
+const app=document.getElementById('app'),submissions=new Set();
+const SOURCE_KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaign_id','creative_id'];
+const KEY_FIRST='gt:first',KEY_LAST='gt:last',KEY_ID='gt:visitor',KEY_SESSION='gt:session',KEY_ANALYTICS='gt:analytics',KEY_SCORE='gt:score';
+function storage(type){try{return type==='local'?localStorage:sessionStorage}catch{return null}}
+function readJSON(store,key){try{return JSON.parse(store?.getItem(key)||'null')}catch{return null}}
+function uuid(){return crypto.randomUUID()}
+function storedId(store,key){let value;try{value=store?.getItem(key)}catch{}if(!value){value=uuid();try{store?.setItem(key,value)}catch{}}return value}
+const anonymousId=storedId(storage('local'),KEY_ID),sessionId=storedId(storage('session'),KEY_SESSION);
+const incoming=Object.fromEntries([...new URLSearchParams(location.search)].filter(([key,value])=>SOURCE_KEYS.includes(key)&&value).map(([key,value])=>[key,value.slice(0,160)]));
+const firstTouch=readJSON(storage('local'),KEY_FIRST)||incoming;
+const latestTouch=Object.keys(incoming).length?incoming:readJSON(storage('local'),KEY_LAST)||firstTouch;
+try{if(!storage('local')?.getItem(KEY_FIRST))storage('local')?.setItem(KEY_FIRST,JSON.stringify(firstTouch));if(Object.keys(incoming).length)storage('local')?.setItem(KEY_LAST,JSON.stringify(latestTouch));}catch{}
+let selected=bots[0],capital=250,scenario=0,modal=false,confirmed=false,expanded=false;
+let analyticsConsent=storage('local')?.getItem(KEY_ANALYTICS)==='yes';
+const scoredEvents=new Set(readJSON(storage('session'),KEY_SCORE)||[]);
+const weights={bot_selected:10,strategy_viewed:10,calculator_interacted:15,capital_selected:10,activation_clicked:20,waitlist_joined:35};
+const seenViews=new Set();
+if(analyticsConsent)enableGoToBotsPosthog();
+function log(event,props={},uniqueKey){
+ const key=uniqueKey?event+':'+uniqueKey:null;
+ if(key&&seenViews.has(key))return;
+ if(key)seenViews.add(key);
+ if(event in weights&&!scoredEvents.has(event)){scoredEvents.add(event);try{storage('session')?.setItem(KEY_SCORE,JSON.stringify([...scoredEvents]))}catch{}}
+ const payload={anonymous_id:anonymousId,session_id:sessionId,timestamp:new Date().toISOString(),...latestTouch,first_touch_source:firstTouch.utm_source,first_touch_campaign:firstTouch.utm_campaign,...props,app:'gotobots',environment:'preview'};
+ console.info('[GoToBots analytics]',event,payload);
+ if(analyticsConsent&&window.posthog?.capture)window.posthog.capture(event,payload);
+}
+function setConsent(checked){
+ analyticsConsent=checked;
+ try{storage('local')?.setItem(KEY_ANALYTICS,checked?'yes':'no')}catch{}
+ if(checked){enableGoToBotsPosthog();log('screen_viewed',{screen_name:route()==='/'?'welcome':'bot_details'});if(route()==='/')log('landing_view',{screen_name:'welcome'})}
+ else if(window.posthog?.opt_out_capturing)window.posthog.opt_out_capturing();
+}
+function calcState(){return {screen_name:'bot_details',bot_id:selected.id,bot_name:selected.name,selected_capital:capital,illustrative_monthly_return_percent:scenario,illustrative_monthly_pnl:capital*scenario/100}}
+function chooseCapital(v){if(v===capital)return;capital=v;log('calculator_interacted',calcState());log('capital_selected',calcState());render()}
+function scenarioInput(v){scenario=Number(v);const el=document.getElementById('scenario-percentage');if(el)el.textContent=(scenario>0?'+':'')+scenario+'%';const pnl=capital*scenario/100;const values=document.getElementById('calc-values');if(values)values.innerHTML=calcValues()}
+let lastCommittedScenario=0;
+function scenarioCommit(){if(lastCommittedScenario===scenario)return;lastCommittedScenario=scenario;log('calculator_interacted',calcState());log('return_scenario_changed',calcState())}
+function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n)}
+function calcValues(){const pnl=capital*scenario/100;return '<div class="calc-row"><span>Starting Capital</span><strong>'+money(capital)+'</strong></div><div class="calc-row"><span>Illustrative Monthly Return</span><strong>'+(scenario>0?'+':'')+scenario+'%</strong></div><div class="calc-row"><span>Illustrative Monthly P&amp;L</span><strong class="'+(pnl<0?'calc-neg':pnl>0?'calc-pos':'')+'">'+(pnl>0?'+':'')+money(pnl)+'</strong></div><div class="calc-row"><span>Illustrative Ending Value</span><strong>'+money(capital+pnl)+'</strong></div>'}
+function calculator(){return '<section id="calculator" class="panel profitcalc"><h2>Monthly Profit / Loss Calculator</h2><p class="muted">Explore hypothetical outcomes, including possible losses.</p><b>Trading Capital</b><div class="capital">'+[100,250,500,1000].map(n=>'<button type="button" class="'+(capital===n?'active':'')+'" aria-pressed="'+(capital===n)+'" onclick="chooseCapital('+n+')">$'+n.toLocaleString()+'</button>').join('')+'</div><label for="scenario-slider" class="calc-slider-label"><span>Illustrative Monthly Return</span><strong id="scenario-percentage">'+(scenario>0?'+':'')+scenario+'%</strong></label><input id="scenario-slider" class="calc-range" type="range" min="-100" max="100" step="5" value="'+scenario+'" oninput="scenarioInput(this.value)" onchange="scenarioCommit()" onpointerup="scenarioCommit()" onkeyup="scenarioCommit()" onblur="scenarioCommit()"><div class="calc-ends"><span>−100%</span><span>0%</span><span>+100%</span></div><div id="calc-values">'+calcValues()+'</div><p class="calc-note">Illustrative scenario only. Not a forecast or verified bot performance. Trading involves significant risk of loss. Fees and taxes are excluded.</p></section>'}
 function header(back=false,title=''){return '<header class="head">'+(back?'<button class="back" onclick="goBack()" aria-label="Back">←</button>':'<div class="brand" onclick="go(\'/\')"><i>⌘</i>GoTo<span class="lime">Bots</span></div>')+(title?'<b>'+title+'</b>':'')+'<span class="tag">● EARLY PREVIEW</span></header>'}
 function risk(full=false){return '<section class="risk"><strong>ⓘ Risk & performance disclosure</strong><p>Automated crypto trading involves significant market risk. Returns are not guaranteed and capital can be lost. No trading or deposits are available in this preview.</p>'+(full?'<p>“Up to 100% Returns per Month” is a product-owner marketing claim pending verification. Measurement period, methodology, fees, historical context and supporting records have not yet been supplied. This figure must not be used to predict returns.</p>':'')+'</section>'}
 function button(label,action){return '<button class="primary" onclick="'+action+'">'+label+' →</button>'}
