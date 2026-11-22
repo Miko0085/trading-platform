@@ -44,10 +44,6 @@ export function BotProfitCalculator({botId,botName,capital,setCapital,monthlyRet
    setCapital(v);firstInteraction();
    capture('capital_selected',{...context(),selected_capital:v,illustrative_monthly_pnl:v*(latest.current/100)});
  }
- function commitScenario(){
-   if(latest.current===monthlyReturnPercent)return;
-   // On native range input, state is already updated; completion events need previous committed value.
- }
  const lastCommitted=useRef(monthlyReturnPercent);
  function commit(){
    if(lastCommitted.current===latest.current)return;
@@ -63,9 +59,8 @@ export function BotProfitCalculator({botId,botName,capital,setCapital,monthlyRet
    <div className="capital-grid">{options.map(v=><button type="button" key={v} className={capital===v?'selected':''} aria-pressed={capital===v} onClick={()=>chooseCapital(v)}>{cash(v)}</button>)}</div>
    <label className="slider-label" htmlFor="monthly-return"><span>Illustrative Monthly Return</span><strong className={monthlyReturnPercent<0?'scenario-negative':''}>{monthlyReturnPercent>0?'+':''}{monthlyReturnPercent}%</strong></label>
    <input id="monthly-return" className="return-slider" type="range" min="-100" max="100" step="5" value={monthlyReturnPercent}
-     onChange={e=>setMonthlyReturnPercent(Number(e.target.value))}
+     onChange={e=>{const next=Number(e.target.value);if(next!==monthlyReturnPercent){firstInteraction();setMonthlyReturnPercent(next)}}}
      onPointerUp={commit} onKeyUp={commit} onBlur={commit}
-     onPointerDown={firstInteraction} onKeyDown={firstInteraction}
      aria-valuetext={monthlyReturnPercent+' percent illustrative monthly return'}/>
    <div className="slider-extents"><span>−100%</span><span>0%</span><span>+100%</span></div>
    <dl className="profit-results">
