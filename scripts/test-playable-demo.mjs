@@ -84,9 +84,9 @@ test('Referral rewards once only on qualified live activation',()=>{
  t.tap('ref:f2');
  assert.equal(t.state().credits,0);
  t.tap('ref:f2');
- assert.equal(t.state().credits,3);
+ assert.equal(t.state().credits,10);
  t.tap('ref:f2');
- assert.equal(t.state().credits,3);
+ assert.equal(t.state().credits,10);
  assert.equal(t.state().refRewarded.length,1);
 });
 test('Subscription grants Credits only once',()=>{
