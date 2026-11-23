@@ -187,3 +187,23 @@ test('Rewards ledger preserves positive and negative Credits transactions',()=>{
  assert.ok(ui.includes('Live GOLD · 24h simulated'));
  assert.ok(!ui.includes('Mock subscription · $39 / 300 Credits'));
 });
+
+test('Bot dashboard shows cycle counts instead of trading/order activity feed',()=>{
+ const t=harness();demoReady(t);let ui=t.render();
+ assert.ok(ui.includes('Cycles Started'));
+ assert.ok(ui.includes('Cycles Completed'));
+ assert.ok(!ui.includes('<h2>Trading Activity</h2>'));
+ assert.ok(!ui.includes('ORD-'));
+ t.tap('next:normal');t.tap('next:normal');t.tap('next:normal');t.tap('next:normal');
+ ui=t.render();
+ assert.ok(ui.includes('Cycle History'));
+ assert.ok(ui.includes('Cycles Started'));
+ t.tap('view:cycles');
+ ui=t.render();
+ assert.ok(ui.includes('GOLD-0001'));
+ assert.ok(!ui.includes('Orders</h3>'));
+ t.tap('inspect:GOLD-0001');
+ ui=t.render();
+ assert.ok(ui.includes('This view summarizes the grid cycle'));
+ assert.ok(!ui.includes('<h3>Orders</h3>'));
+});
