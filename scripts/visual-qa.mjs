@@ -59,7 +59,8 @@ for(const width of [320,375,390,430,768,1280,1440]){
  assert.ok(await page.getByText('Credits Activity').count(),width+'px Rewards missing credit ledger');
  await page.screenshot({path:out+'/'+width+'-rewards.png',fullPage:true});
  await page.locator('.bottom button[data-a="go:tasks"]').click();
- await page.getByRole('button',{name:'Open'}).first().click().catch(()=>{});
+ await page.locator('[data-a="sub:tasks"]').click();
+ await page.locator('.task [data-a^="task:"]').first().click();
  await page.evaluate(()=>{const n=document.querySelector('.toast');if(!n)document.querySelector('button[data-a="task:basics"]')?.click()});
  const toast=await page.locator('.toast').boundingBox();
  if(toast)assert.ok(toast.y<120,width+'px notification is not near top: '+toast.y);
