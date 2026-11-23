@@ -103,3 +103,15 @@ The GoToBots Playable Demo now uses a **single mobile application layout at ever
 - Playwright visual QA explicitly checks frame width, centering, bottom navigation and absence of sidebar at 320, 375, 390, 430, 768, 1280 and 1440 pixels.
 
 This design supersedes the earlier separate desktop adaptation requirement for the Playable Demo.
+
+## UX information hierarchy revision — Friends & Profile
+
+Following the supplied Hot Wallet screenshots, the prototype uses **progressive disclosure** instead of stacking secondary panels.
+
+**Friends (mobile only):** a three-option top tab strip `Network / Friends League / Global`. The default Network tab orders content as (1) Direct Friends / Total Network / Qualified Live / Referral Credits, (2) Referral Network with retained `All Levels / Level 1 / Level 2 / Level 3` mini-filters and details/progress actions, then (3) the referral link and Share / Add Mock Friend actions. Separate league tabs show XP-only rankings on demand, never trading P&L. Selected tab and network level persist in localStorage.
+
+**Profile:** compact identity, a wallet-style Credits balance panel with three working actions `Get Credits / Rewards / Invite`, followed by XP progress, a concise Credits summary, and the GOLD subscription tile. Account, Security, Language, Notifications and Demo Controls now live on a nested Settings screen, accessible from a top gear button and a footer link.
+
+**Credits transactions:** removed the duplicate full ledger from the Profile overview. Under `Tasks → Rewards`, `Credits Activity` displays the complete Credits transaction history, including positive and negative entries, with `All / Earned / Used` filters. The profile's Rewards shortcut opens it directly.
+
+All mock business logic and the mobile-only 430px app frame remain unchanged. This is an adaptation of information hierarchy from the supplied reference, not a visual reproduction of Hot Wallet.
