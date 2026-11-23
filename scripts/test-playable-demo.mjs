@@ -122,3 +122,12 @@ test('XP and Credits notifications render at top with dismiss action',()=>{
  t.tap('toastclose');
  assert.ok(!t.render().includes('class="toast"'));
 });
+
+test('Mobile-only shell never renders desktop sidebar',()=>{
+ const t=harness();demoReady(t);
+ const ui=t.render();
+ assert.ok(ui.includes('class="app mobile-shell"'));
+ assert.ok(ui.includes('class="bottom"'));
+ assert.ok(!ui.includes('class="side"'));
+ assert.ok(html.includes('--gt-app-width:430px'));
+});
