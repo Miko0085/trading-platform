@@ -131,3 +131,59 @@ test('Mobile-only shell never renders desktop sidebar',()=>{
  assert.ok(!ui.includes('class="side"'));
  assert.ok(html.includes('--gt-app-width:430px'));
 });
+
+test('Friends default page prioritizes stats and network before share card',()=>{
+ const t=harness();demoReady(t);t.tap('go:friends');
+ const ui=t.render();
+ assert.ok(ui.includes('data-a="friendstab:network"'));
+ assert.ok(ui.includes('data-a="friendstab:league"'));
+ assert.ok(ui.includes('data-a="friendstab:global"'));
+ assert.ok(ui.indexOf('Direct Friends')<ui.indexOf('Referral Network'));
+ assert.ok(ui.indexOf('Referral Network')<ui.indexOf('INVITE & EARN'));
+ assert.ok(!ui.includes('Your position'));
+});
+test('League tabs isolate rankings and preserve network filter state',()=>{
+ const t=harness();demoReady(t);t.tap('go:friends');
+ t.tap('friendlevel:2');
+ assert.equal(t.state().friendLevel,2);
+ t.tap('friendstab:league');
+ let ui=t.render();
+ assert.ok(ui.includes('Your position'));
+ assert.ok(ui.includes('Friends League'));
+ assert.ok(!ui.includes('Referral Network'));
+ assert.ok(!ui.includes('INVITE & EARN'));
+ t.tap('friendstab:global');
+ ui=t.render();
+ assert.ok(ui.includes('Global Leaderboard'));
+ assert.ok(ui.includes('GOLD Master'));
+ t.tap('friendstab:network');
+ ui=t.render();
+ assert.ok(ui.includes('data-a="friendlevel:2" class="active"'));
+ assert.ok(!ui.includes('Your position'));
+});
+test('Profile opens nested settings and Credits activity via Rewards',()=>{
+ const t=harness();demoReady(t);t.tap('go:profile');
+ let ui=t.render();
+ assert.ok(ui.includes('Available Bot Credits'));
+ assert.ok(ui.includes('data-a="profileview:settings"'));
+ assert.ok(!ui.includes('Credits Transactions'));
+ assert.ok(!ui.includes('Security & Bybit'));
+ t.tap('profileview:settings');
+ ui=t.render();
+ assert.ok(ui.includes('Account & Preferences'));
+ assert.ok(ui.includes('Security & Bybit'));
+ t.tap('profileview:overview');t.tap('profile-rewards');
+ assert.equal(t.state().tab,'tasks');
+ assert.equal(t.state().subtab,'rewards');
+ assert.ok(t.render().includes('Credits Activity'));
+});
+test('Rewards ledger preserves positive and negative Credits transactions',()=>{
+ const t=harness();liveReady(t);t.tap('spend:24');t.tap('profile-rewards');
+ let ui=t.render();
+ assert.ok(ui.includes('Live GOLD · 24h simulated'));
+ assert.ok(ui.includes('data-a="creditfilter:used"'));
+ t.tap('creditfilter:used');
+ ui=t.render();
+ assert.ok(ui.includes('Live GOLD · 24h simulated'));
+ assert.ok(!ui.includes('Mock subscription · $39 / 300 Credits'));
+});
