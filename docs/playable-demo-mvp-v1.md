@@ -89,3 +89,17 @@ node scripts/visual-qa.mjs
 ```
 
 Successful Chromium geometry checks do not replace subjective visual review of generated screenshots on physical iPhone/Android devices.
+
+## Mobile-only product decision (November 23, 2026)
+
+The GoToBots Playable Demo now uses a **single mobile application layout at every screen size** (Notcoin / Telegram Mini App style):
+
+- Phone widths 320–430px: application fills the viewport width.
+- Wider phones, tablets and desktops: **same 430px-wide mobile app centered horizontally**, with a dark background outside the frame.
+- No desktop sidebar, no separate desktop dashboard, no tablet navigation adaptation, no browser-controlled zoom changes.
+- All four primary destinations use the same fixed bottom mobile navigation on every viewport.
+- Modal sheets, main page spacing, reward notifications and interactive charts retain mobile layout at all widths.
+- Existing GitHub Pages landing remains untouched; only `/playable-demo/` changes.
+- Playwright visual QA explicitly checks frame width, centering, bottom navigation and absence of sidebar at 320, 375, 390, 430, 768, 1280 and 1440 pixels.
+
+This design supersedes the earlier separate desktop adaptation requirement for the Playable Demo.
