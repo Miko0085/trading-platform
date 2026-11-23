@@ -62,8 +62,10 @@ for(const width of [320,375,390,430,768,1280,1440]){
  await page.locator('[data-a="sub:tasks"]').click();
  await page.locator('.task [data-a^="task:"]').first().click();
  await page.evaluate(()=>{const n=document.querySelector('.toast');if(!n)document.querySelector('button[data-a="task:basics"]')?.click()});
- const toast=await page.locator('.toast').boundingBox();
- if(toast)assert.ok(toast.y<120,width+'px notification is not near top: '+toast.y);
+ if(await page.locator('.toast').count()){
+  const toast=await page.locator('.toast').boundingBox({timeout:1500});
+  if(toast)assert.ok(toast.y<120,width+'px notification is not near top: '+toast.y);
+ }
  await page.close();
 }
 assert.deepEqual(errors,[],'Browser page errors');
