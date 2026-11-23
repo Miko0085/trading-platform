@@ -42,6 +42,22 @@ for(const width of [320,375,390,430,768,1280,1440]){
   assert.equal(dims.horizontalItems.length,0,width+'px / '+tab+' overflowing containers '+JSON.stringify(dims));
   await page.screenshot({path:out+'/'+width+'-'+tab+'.png',fullPage:true});
  }
+ await page.locator('.bottom button[data-a="go:friends"]').click();
+ await page.locator('[data-a="friendstab:league"]').click();
+ assert.ok(await page.getByText('Your position').count(),width+'px missing Friends League summary');
+ assert.equal(await page.getByText('Referral Network').count(),0,width+'px league still shows referral network');
+ await page.screenshot({path:out+'/'+width+'-friends-league.png',fullPage:true});
+ await page.locator('[data-a="friendstab:global"]').click();
+ assert.ok(await page.getByText('GOLD Master').count(),width+'px missing Global rankings');
+ await page.screenshot({path:out+'/'+width+'-friends-global.png',fullPage:true});
+ await page.locator('.bottom button[data-a="go:profile"]').click();
+ await page.locator('[data-a="profileview:settings"]').first().click();
+ assert.ok(await page.getByText('Account & Preferences').count(),width+'px settings nested view failed');
+ await page.screenshot({path:out+'/'+width+'-profile-settings.png',fullPage:true});
+ await page.locator('[data-a="profileview:overview"]').click();
+ await page.locator('[data-a="profile-rewards"]').first().click();
+ assert.ok(await page.getByText('Credits Activity').count(),width+'px Rewards missing credit ledger');
+ await page.screenshot({path:out+'/'+width+'-rewards.png',fullPage:true});
  await page.locator('.bottom button[data-a="go:tasks"]').click();
  await page.getByRole('button',{name:'Open'}).first().click().catch(()=>{});
  await page.evaluate(()=>{const n=document.querySelector('.toast');if(!n)document.querySelector('button[data-a="task:basics"]')?.click()});
@@ -51,4 +67,4 @@ for(const width of [320,375,390,430,768,1280,1440]){
 }
 assert.deepEqual(errors,[],'Browser page errors');
 await browser.close();
-console.log('PASS: mobile-only centered app frame and bottom nav on 7 viewport sizes, all 4 tabs, no overflowing containers or browser errors. Screenshots at '+out);
+console.log('PASS: mobile-only centered app frame and bottom nav on 7 viewport sizes, all 4 tabs plus Friends League, Global, Settings and Rewards, no overflowing containers or browser errors. Screenshots at '+out);
